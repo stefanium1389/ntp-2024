@@ -7,10 +7,19 @@ fn main() {
     // Ovo funkcioniše jer se `&String` implicitno konvertuje u `&str. Ovakav tip konverzije se naziva `Deref coercion`. 
     let word = first_word(&s);
 
-    s.clear(); // greška!
-
     println!("the first word is: {}", word);
+
+    s.clear(); 
+
 }
 fn first_word(s: &str) -> &str {
-    &s[..1]
+    let bytes = s.as_bytes();
+
+      for (i, &item) in bytes.iter().enumerate() {
+          if item == b' ' {
+              return &s[0..i];
+          }
+      }
+
+      &s[..]
 }
